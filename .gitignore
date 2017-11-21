@@ -1,3 +1,4 @@
 *.priv
 *.pub
 *.swp
+*_rsa*
