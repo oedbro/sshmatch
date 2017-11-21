@@ -1,10 +1,15 @@
 #!/usr/bin/python3
 
 import sys
+import os
+
+debug = True
 
 def main(pubpath, privpath):
-    
-
+    publist = os.listdir(pubpath)
+    privlist = os.listdir(privpath)
+    if debug:
+        print(publist)
 
 if __name__ == "__main__":
     if len(sys.argv) == 3:
