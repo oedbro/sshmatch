@@ -4,6 +4,8 @@ import sys
 import os
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat import backends
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.asymmetric import padding
 #from OpenSSL import crypto
 
 debug = True
@@ -33,7 +35,19 @@ def main(pubpath, privpath):
             None, backends.default_backend()) 
     if debug:
         print("privkey: " + str(privkey))
-
+    
+    #testkey = privkey.public_key()
+    #if debug:
+    #    print("testkey: " + str(testkey))
+   
+    pad= padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA1()),\
+            algorithm=hashes.SHA1(),\
+            label=None)
+    msg = pubkey.encrypt(b"True", pad)
+    
+    
+    if privkey.decrypt(msg, pad) == b"True":
+        print("YAY")
 
 if __name__ == "__main__":
     if len(sys.argv) == 3:
