@@ -34,7 +34,7 @@ def main(pubpath, privpath):
                 label=None)
         
         for j in range(0,len(privlist)): 
-            with open(privpath + '/' + privlist[0], 'rb') as privfile:
+            with open(privpath + '/' + privlist[j], 'rb') as privfile:
                 privdata = privfile.read()
                 if debug:
                     print("privdata " + str(privdata))
@@ -52,9 +52,9 @@ def main(pubpath, privpath):
     
             try:
                 if privkey.decrypt(msg, pad) == b"True":
-                    print("YAY")
+                    print("Match: " + publist[i] + " " + privlist[j])
             except ValueError:
-                print("Oh no...")
+                pass
 
 if __name__ == "__main__":
     if len(sys.argv) == 3:
