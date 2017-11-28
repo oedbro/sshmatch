@@ -22,12 +22,16 @@ def main(pubpath, privpath):
             pubdata = pubfile.read()
             if debug:
                 print("pubdata " + str(pubdata))
-        # pubkey = crypto.load_publickey(crypto.FILETYPE_PEM, pubdata) 
-        pubkey = serialization.load_ssh_public_key(pubdata,\
-                backends.default_backend()) 
+        # pubkey = crypto.load_publickey(crypto.FILETYPE_PEM, pubdata)
+        try: 
+            pubkey = serialization.load_ssh_public_key(pubdata,\
+                backends.default_backend())
+        except:
+            print("Wrong keytype.")
+            break
+    
         if debug:
             print("pubkey: " + str(pubkey))
-
 
         pad= padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA1()),\
                 algorithm=hashes.SHA1(),\
@@ -39,8 +43,12 @@ def main(pubpath, privpath):
                 if debug:
                     print("privdata " + str(privdata))
             # pubkey = crypto.load_publickey(crypto.FILETYPE_PEM, pubdata)
-            privkey = serialization.load_pem_private_key(privdata,\
-                    None, backends.default_backend()) 
+            try:
+                privkey = serialization.load_pem_private_key(privdata,\
+                    None, backends.default_backend())
+            except:
+                print("Wrong keytype.")
+                break
             if debug:
                 print("privkey: " + str(privkey))
     
