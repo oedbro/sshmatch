@@ -27,8 +27,13 @@ def main(pubpath, privpath):
             pubkey = serialization.load_ssh_public_key(pubdata,\
                 backends.default_backend())
         except:
-            print("Wrong keytype.")
-            break
+            try:
+                pubkey = serialization.load_pem_public_key(pubdata,\
+                    backends.default_backend())
+            except:
+                print("Wrong keytype on " + pub)
+                continue
+
         if debug:
             print("pubkey: " + str(pub))
 
@@ -45,8 +50,9 @@ def main(pubpath, privpath):
                 privkey = serialization.load_pem_private_key(privdata,\
                     None, backends.default_backend())
             except:
-                print("Wrong keytype.")
-                break
+                print("Wrong keytype on " + priv)
+                privlist.remove(priv)
+                continue
             if debug:
                 print("privkey: " + str(privkey))
     
