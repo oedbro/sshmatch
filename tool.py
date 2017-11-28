@@ -27,7 +27,12 @@ def main(pubpath, privpath):
                 backends.default_backend()) 
         if debug:
             print("pubkey: " + str(pubkey))
- 
+
+
+        pad= padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA1()),\
+                algorithm=hashes.SHA1(),\
+                label=None)
+        
         for j in range(0,len(privlist)): 
             with open(privpath + '/' + privlist[0], 'rb') as privfile:
                 privdata = privfile.read()
@@ -43,9 +48,6 @@ def main(pubpath, privpath):
             #if debug:
             #    print("testkey: " + str(testkey))
    
-            pad= padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA1()),\
-                    algorithm=hashes.SHA1(),\
-                    label=None)
             msg = pubkey.encrypt(b"True", pad) 
     
             try:
