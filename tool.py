@@ -2,6 +2,7 @@
 
 import sys
 import os
+import time
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat import backends
 from cryptography.hazmat.primitives import hashes
@@ -67,7 +68,9 @@ def main(pubpath, privpath):
 
 if __name__ == "__main__":
     if len(sys.argv) == 3:
+        start_time = time.time()
         main(sys.argv[1], sys.argv[2])
+        print("Runtime: " + str(time.time() - start_time) + " seconds")
     else:
         print("Usage tool.py pubpath privpath\n")
 
