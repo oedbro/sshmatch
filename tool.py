@@ -22,6 +22,7 @@ def main(pubpath, privpath):
     for pub in publist: 
         with open(pubpath + '/' + pub, 'rb') as pubfile:
             pubdata = pubfile.read()
+            pubfile.close()
             if debug:
                 print("pubdata " + str(pubdata))
         try: 
@@ -45,6 +46,7 @@ def main(pubpath, privpath):
         for priv in privlist: 
             with open(privpath + '/' + priv, 'rb') as privfile:
                 privdata = privfile.read()
+                privfile.close()
                 if debug:
                     print("privdata " + str(privdata))
             try:
