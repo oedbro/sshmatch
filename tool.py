@@ -63,10 +63,10 @@ def main(pubpath, privpath):
             msg = pubkey.encrypt(b"True", pad) 
     
             try:
-                if privkey.decrypt(msg, pad) == b"True":
-                    print("Match: " + pubpath + "/" + pub + " " + privpath +\
+                privkey.decrypt(msg, pad)
+                print("Match: " + pubpath + "/" + pub + " " + privpath +\
                     "/" + priv)
-                    matches += 1
+                matches += 1
             except ValueError:
                 pass
     print("Total number of matches: " + str(matches))
