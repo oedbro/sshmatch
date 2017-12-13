@@ -15,6 +15,7 @@ def main(pubpath, privpath):
     # generate a list of the keys to test
     publist = os.listdir(pubpath)
     privlist = os.listdir(privpath)
+    matches = 0
     if debug:
         print("content of publist " + str(publist))
         print("content of privlist " + str(privlist))
@@ -65,8 +66,16 @@ def main(pubpath, privpath):
                 if privkey.decrypt(msg, pad) == b"True":
                     print("Match: " + pubpath + "/" + pub + " " + privpath +\
                     "/" + priv)
+                    matches += 1
             except ValueError:
                 pass
+    print("Total number of matches: " + str(matches))
+    print("Nr of public keys: " + str(len(publist)))
+    print("Nr of private keys: " + str(len(privlist)))
+
+
+
+
 
 if __name__ == "__main__":
     if len(sys.argv) == 3:
